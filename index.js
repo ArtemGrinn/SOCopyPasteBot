@@ -23,7 +23,12 @@ const menu = () => {
 
 app.register(telegrafPlugin, { bot, path: SECRET_PATH })
 
-bot.on('text', (ctx) => ctx.reply('Hello', menu()))
+bot.on('message', (ctx) => ctx.reply('Hello', menu()))
+    .on('callback_query', (ctx) => {
+        ctx.answerCbQuery();
+        ctx.deleteMessage();
+        ctx.reply(`You press ${ctx.callbackQuery.data}`, menu())
+    });
 
 bot.telegram.setWebhook(WEBHOOK_URL).then(() => {
   console.log('Webhook is set on', WEBHOOK_URL)
