@@ -1,7 +1,6 @@
 const fastify = require('fastify')
-const { Telegraf } = require('telegraf')
+const { Telegraf, Markup } = require('telegraf')
 const telegrafPlugin = require('fastify-telegraf')
-const Markup = require('telegraf/markup')
 
 const PORT = process.env.PORT || 3000
 
@@ -11,15 +10,15 @@ const SECRET_PATH = '/my-secret-path'
 const WEBHOOK_URL = `https://socopypastebot.herokuapp.com${SECRET_PATH}`
 
 const inlineMessageRatingKeyboard = Markup.inlineKeyboard([
-    Markup.callbackButton('👍', 'like'),
-    Markup.callbackButton('👎', 'dislike')
-]).extra()
+    Markup.button.callback('👍', 'like'),
+    Markup.button.callback('👎', 'dislike')
+])
 
 app.register(telegrafPlugin, { bot, path: SECRET_PATH })
 
 bot.on('message', (ctx) => ctx.telegram.sendMessage(ctx.from.id, 'Like?', inlineMessageRatingKeyboard))
-telegram.action('like', (ctx) => ctx.editMessageText('🎉 Awesome! 🎉'))
-telegram.action('dislike', (ctx) => ctx.editMessageText('okey'))
+bot.action('like', (ctx) => ctx.editMessageText('🎉 Awesome! 🎉'))
+bot.action('dislike', (ctx) => ctx.editMessageText('okey'))
 
 bot.telegram.setWebhook(WEBHOOK_URL).then(() => {
   console.log('Webhook is set on', WEBHOOK_URL)
