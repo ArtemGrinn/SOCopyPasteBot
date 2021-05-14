@@ -10,7 +10,7 @@ const SECRET_PATH = '/my-secret-path'
 const WEBHOOK_URL = `https://socopypastebot.herokuapp.com${SECRET_PATH}`
 
 const menu = () => {
-    return Telegraf.Extra
+    return Telegraf
       .markup((m) =>
         m.inlineKeyboard([
           [
