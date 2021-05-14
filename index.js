@@ -17,12 +17,9 @@ const inlineMessageRatingKeyboard = Markup.inlineKeyboard([
 
 app.register(telegrafPlugin, { bot, path: SECRET_PATH })
 
-bot.on('message', (ctx) => ctx.reply('Hello',inlineMessageRatingKeyboard))
-    .on('callback_query', (ctx) => {
-        ctx.answerCbQuery();
-        ctx.deleteMessage();
-        ctx.reply(`You press ${ctx.callbackQuery.data}`, inlineMessageRatingKeyboard)
-    });
+bot.on('message', (ctx) => ctx.telegram.sendMessage(ctx.from.id, 'Like?', inlineMessageRatingKeyboard))
+telegram.action('like', (ctx) => ctx.editMessageText('🎉 Awesome! 🎉'))
+telegram.action('dislike', (ctx) => ctx.editMessageText('okey'))
 
 bot.telegram.setWebhook(WEBHOOK_URL).then(() => {
   console.log('Webhook is set on', WEBHOOK_URL)
