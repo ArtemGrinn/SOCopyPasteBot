@@ -2,8 +2,8 @@ const fastify = require('fastify')
 const { Telegraf } = require('telegraf')
 const telegrafPlugin = require('fastify-telegraf')
 
-const WEBHOOK_URL = process.env.URL || "https://socopypastebot.herokuapp.com/"
 const PORT = process.env.PORT || 3000
+const WEBHOOK_URL = `https://socopypastebot.herokuapp.com:${PORT}`
 
 const bot = new Telegraf("1865995819:AAEkdO2JZAoWCUNAxdRLM08O6JC2Fw1ACH0")
 const app = fastify()
