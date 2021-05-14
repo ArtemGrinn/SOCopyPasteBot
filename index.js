@@ -1,6 +1,7 @@
 const fastify = require('fastify')
 const { Telegraf } = require('telegraf')
 const telegrafPlugin = require('fastify-telegraf')
+const { Markup } = Telegraf
 
 const PORT = process.env.PORT || 3000
 
@@ -9,25 +10,18 @@ const app = fastify()
 const SECRET_PATH = '/my-secret-path'
 const WEBHOOK_URL = `https://socopypastebot.herokuapp.com${SECRET_PATH}`
 
-const menu = () => {
-    return Telegraf
-      .markup((m) =>
-        m.inlineKeyboard([
-          [
-            m.callbackButton('Press 0', '0'),
-            m.callbackButton('Press 1', '1')
-          ]
-        ])
-      )
-  };
+const inlineMessageRatingKeyboard = Markup.inlineKeyboard([
+    Markup.callbackButton('👍', 'like'),
+    Markup.callbackButton('👎', 'dislike')
+]).extra()
 
 app.register(telegrafPlugin, { bot, path: SECRET_PATH })
 
-bot.on('message', (ctx) => ctx.reply('Hello', menu()))
+bot.on('message', (ctx) => ctx.reply('Hello',inlineMessageRatingKeyboard))
     .on('callback_query', (ctx) => {
         ctx.answerCbQuery();
         ctx.deleteMessage();
-        ctx.reply(`You press ${ctx.callbackQuery.data}`, menu())
+        ctx.reply(`You press ${ctx.callbackQuery.data}`, inlineMessageRatingKeyboard)
     });
 
 bot.telegram.setWebhook(WEBHOOK_URL).then(() => {
