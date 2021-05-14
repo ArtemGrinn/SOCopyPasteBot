@@ -1,0 +1,24 @@
+{
+  "name": "socopypastebot",
+  "version": "1.0.0",
+  "description": "nodejs telegram bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArtemGrinn/SOCopyPasteBot.git"
+  },
+  "author": "Art Haletskiy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArtemGrinn/SOCopyPasteBot/issues"
+  },
+  "homepage": "https://github.com/ArtemGrinn/SOCopyPasteBot#readme",
+  "dependencies": {
+    "fastify": "^3.15.1",
+    "fastify-telegraf": "^1.0.2",
+    "telegraf": "^4.3.0"
+  }
+}
