@@ -3,8 +3,7 @@ const { Telegraf, Markup } = require('telegraf')
 const telegrafPlugin = require('fastify-telegraf')
 
 const PORT = process.env.PORT || 3000
-
-const bot = new Telegraf("1865995819:AAEkdO2JZAoWCUNAxdRLM08O6JC2Fw1ACH0")
+const bot = new Telegraf(process.env.TOKEN)
 const app = fastify()
 const SECRET_PATH = '/my-secret-path'
 const WEBHOOK_URL = `https://socopypastebot.herokuapp.com${SECRET_PATH}`
