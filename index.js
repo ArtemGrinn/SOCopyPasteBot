@@ -1,7 +1,7 @@
 const fastify = require('fastify')
 const { Telegraf } = require('telegraf')
 const telegrafPlugin = require('fastify-telegraf')
-const { Markup } = Telegraf
+const Markup = require('telegraf/markup')
 
 const PORT = process.env.PORT || 3000
 
