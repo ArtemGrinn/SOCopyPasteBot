@@ -9,9 +9,21 @@ const app = fastify()
 const SECRET_PATH = '/my-secret-path'
 const WEBHOOK_URL = `https://socopypastebot.herokuapp.com${SECRET_PATH}`
 
+const menu = () => {
+    return Telegraf.Extra
+      .markup((m) =>
+        m.inlineKeyboard([
+          [
+            m.callbackButton('Press 0', '0'),
+            m.callbackButton('Press 1', '1')
+          ]
+        ])
+      )
+  };
+
 app.register(telegrafPlugin, { bot, path: SECRET_PATH })
 
-bot.on('text', (ctx) => ctx.reply('Hello'))
+bot.on('text', (ctx) => ctx.reply('Hello', menu()))
 
 bot.telegram.setWebhook(WEBHOOK_URL).then(() => {
   console.log('Webhook is set on', WEBHOOK_URL)
