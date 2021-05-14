@@ -3,7 +3,7 @@ const { Telegraf } = require('telegraf')
 const telegrafPlugin = require('fastify-telegraf')
 
 const PORT = process.env.PORT || 3000
-const WEBHOOK_URL = `https://socopypastebot.herokuapp.com:${PORT}`
+const WEBHOOK_URL = `https://socopypastebot.herokuapp.com`
 
 const bot = new Telegraf("1865995819:AAEkdO2JZAoWCUNAxdRLM08O6JC2Fw1ACH0")
 const app = fastify()
@@ -21,6 +21,6 @@ app.get('/', async (request, reply) => {
     return { hello: 'world' }
   })
 
-app.listen(PORT).then(() => {
+app.listen(PORT, "0.0.0.0").then(() => {
   console.log('Listening on port', PORT)
 })
